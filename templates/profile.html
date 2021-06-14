@@ -1,0 +1,14 @@
+{% include 'navbar.html' %}
+<h1 style="margin-left: 20px">{{ profile.nickname }}</h1>
+<form>
+    {% csrf_token %}
+    <input type="hidden" name="user_id" value="{{ user.id }}"">
+    <button name="subscribe" type="submit" class="btn-outline-success">subscribe</button>
+
+
+</form>
+<div>
+    <img src="{{ profile.image.url }}">
+    <h3>Bio:</h3>
+    <p style="font-size: 20px">{{ profile.bio }}</p>
+</div>
