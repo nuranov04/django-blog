@@ -1,36 +1,37 @@
 {% load static %}
 {% include 'navbar.html' %}
 {% block content %}
-    <form>
-        <p>
-        <h3 href="{% url 'profile' user.id %}"
-            style="margin-left: 800px; margin-top: 15px; font-size: 25px">{{ post.user }}</h3>
-        </p>
-        <div class="card mb-3">
-            <img src="{{ post.post_image.url }}" class="card-img-top" style="width: 100%">
-            <div class="card-body">
-                <p style="font-size: 35px; margin-left: 850px;" class="card-text">{{ post.title }}</p>
-                <p style="font-size: 15px; margin-top: 20px" class="card-text">{{ post.description }}</p>
-                <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
-            </div>
+
+<div>
+    <a href="{% url 'profile' user.id %}" style=" margin-left: 400px; margin-top: 15px; font-size: 25px">{{ post.user }}</a>
+    <p>{{ post.subscribe.count }}</p>
+</div>
+
+<form>
+    <div class="card mb-3">
+        <img src="{{ post.image.url }}" class="card-img-top" style="width: 400px">
+        <div class="card-body">
+            <p style="font-size: 35px; margin-left: 850px;" class="card-text">{{ post.title }}</p>
+            <p style="font-size: 15px; margin-top: 20px" class="card-text">{{ post.description }}</p>
+            <p class="card-text"><small class="text-muted">{{ post.create_at }}</small></p>
         </div>
-    </form>
-    {% for comment in post.comment_post.all %}
-        <div>
-            <p style="margin-left: 25px; margin-bottom: 15px">{{ comment.text }}</p>
-        </div>
-    {% endfor %}
-    <div class="card-footer p-0 d-flex">
-        <form method="post" class="form-control">
-            {% csrf_token %}
-            <input type="hidden" name="post_id" value="{{ post.id }}">
-            <input type="text" name="comment_text" class="form-control"
-                   placeholder="Оставьте комментарий...">
-            <button type="submit" name="comment" class="btn btn-danger">
-                Comment
-            </button>
-        </form>
     </div>
+</form>
+{% for comment in post.comment_post.all %}
+<div>
+    <p style="margin-left: 25px; margin-bottom: 15px">{{ comment.text }}</p>
+</div>
+{% endfor %}
+<div class="card-footer p-0 d-flex">
+    <form method="post" class="form-control">
+        {% csrf_token %}
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <input type="text" name="comment_text" class="form-control" placeholder="Оставьте комментарий...">
+        <button type="submit" name="comment" class="btn btn-danger">
+            Comment
+        </button>
+    </form>
+</div>
 {% endblock %}
 
 </html>

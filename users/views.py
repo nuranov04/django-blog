@@ -7,6 +7,14 @@ from django.contrib.auth import login, authenticate
 
 def profile(request, id):
     profiles = Profile.objects.get(user__id=id)
+    if 'subscribe' in request.POST:
+        id = request.POST.get('user_id')
+        post_obj = Post.objects.get(id=id)
+        try:
+            subscribe = Subscribe.objects.get(user=request.user, post=post_obj)
+            subscribe.delete()
+        except:
+            subscribe.objects.create(user=request.user, post=post_obj)
     return render(request, 'profile.html', {"profile": profiles})
 
 

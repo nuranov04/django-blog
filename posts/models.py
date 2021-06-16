@@ -30,4 +30,3 @@ class Post(models.Model):
 
 class Subscribe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscribe_user')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='subscribe_post')
